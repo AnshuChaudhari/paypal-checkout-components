@@ -29,7 +29,7 @@ module.exports = {
             __QRCODE__:         '/smart/qrcode',
             __INSTALLMENTS__:   '/smart/installments',
             __MODAL__:          '/smart/modal',
-            __CARD_FIELDS__:    '/smart/card-fields',
+            __CARD_FIELDS__:    '/altpayfields',
             __CARD_FIELD__:     '/smart/card-field',
             __WALLET__:         '/smart/wallet',
             __PAYMENT_FIELDS__: '/altpayfields'
