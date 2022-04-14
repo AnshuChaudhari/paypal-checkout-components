@@ -2,11 +2,11 @@
 /** @jsx node */
 /* eslint max-lines: 0 */
 
-import { node, dom } from 'jsx-pragmatic/src';
-import { ZalgoPromise } from 'zalgo-promise/src';
-import { create, type ZoidComponent } from 'zoid/src';
-import type { CrossDomainWindowType } from 'cross-domain-utils/src';
-import { memoize, uniqueID } from 'belter/src';
+import { node, dom } from '@krakenjs/jsx-pragmatic/src';
+import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
+import { create, type ZoidComponent } from '@krakenjs/zoid/src';
+import type { CrossDomainWindowType } from '@krakenjs/cross-domain-utils/src';
+import { memoize, uniqueID } from '@krakenjs/belter/src';
 import { getLocale, getEnv, getSDKMeta, getDisableCard, getPayPalDomain, getClientID, getDebug, getCurrency, getIntent,
     getCommit, getVault } from '@paypal/sdk-client/src';
 import { getRefinedFundingEligibility } from '@paypal/funding-components/src';
@@ -47,6 +47,7 @@ type CardFieldsProps = {|
 
     createOrder : () => ZalgoPromise<string> | string,
     onApprove : ({| returnUrl : string |}, {| redirect : (?CrossDomainWindowType, ?string) => ZalgoPromise<void> |}) => ?ZalgoPromise<void>,
+    onComplete : ({| returnUrl : string |}, {| redirect : (?CrossDomainWindowType, ?string) => ZalgoPromise<void> |}) => ?ZalgoPromise<void>,
     onCancel ? : ({| cancelUrl : string |}, {| redirect : (? CrossDomainWindowType, ? string) => ZalgoPromise<void> |}) => ?ZalgoPromise<void>
 |};
 
@@ -163,6 +164,12 @@ export const getCardFieldsComponent : () => CardFieldsComponent = memoize(() : C
                     type:     'function',
                     required: false,
                     value:      ({ props }) => props.parent.props.onApprove
+                },
+
+                onComplete: {
+                    type:     'function',
+                    required: false,
+                    value:      ({ props }) => props.parent.props.onComplete
                 },
 
                 onCancel: {
@@ -332,6 +339,11 @@ export const getCardFieldsComponent : () => CardFieldsComponent = memoize(() : C
             },
 
             onApprove: {
+                type:     'function',
+                required: false
+            },
+
+            onComplete: {
                 type:     'function',
                 required: false
             },

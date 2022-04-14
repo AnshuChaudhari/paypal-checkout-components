@@ -1,16 +1,16 @@
 /* eslint-disable max-lines, eslint-comments/disable-enable-pair  */
 /* @flow */
 
-import { ZalgoPromise } from 'zalgo-promise/src';
-import { values, uniqueID } from 'belter/src';
+import { ZalgoPromise } from '@krakenjs/zalgo-promise/src';
+import { values, uniqueID } from '@krakenjs/belter/src';
 import { type OrderCreateRequest, type FundingEligibilityType,
     type OrderGetResponse, type OrderCaptureResponse, type OrderAuthorizeResponse } from '@paypal/sdk-client/src';
 import { FUNDING, PLATFORM, INTENT, COMMIT, VAULT,
     ENV, COUNTRY, LANG, COUNTRY_LANGS, type LocaleType, CARD, COMPONENTS } from '@paypal/sdk-constants/src';
-import { type CrossDomainWindowType } from 'cross-domain-utils/src';
+import { type CrossDomainWindowType } from '@krakenjs/cross-domain-utils/src';
 import { LOGO_COLOR } from '@paypal/sdk-logos/src';
 import { SUPPORTED_FUNDING_SOURCES } from '@paypal/funding-components/src';
-import type { ComponentFunctionType } from 'jsx-pragmatic/src';
+import type { ComponentFunctionType } from '@krakenjs/jsx-pragmatic/src';
 
 import type { ContentType, CustomStyle, Wallet, Experiment } from '../../types';
 import { BUTTON_LABEL, BUTTON_COLOR, BUTTON_LAYOUT, BUTTON_SHAPE, BUTTON_SIZE, BUTTON_FLOW, MENU_PLACEMENT } from '../../constants';
@@ -35,6 +35,8 @@ export type OnApproveData = {|
     payerID : string,
     paymentID? : string
 |};
+
+export type OnCompleteData = {||};
 
 export type CreateBillingAgreement = () => ZalgoPromise<string> | string;
 
@@ -65,7 +67,12 @@ export type OnApproveActions = {|
     |}
 |};
 
+export type OnCompleteActions = {|
+    redirect : (string, CrossDomainWindowType) => ZalgoPromise<void>
+|};
+
 export type OnApprove = (data : OnApproveData, actions : OnApproveActions) => ZalgoPromise<void> | void;
+export type OnComplete = (data : OnCompleteData, actions : OnCompleteActions) => ZalgoPromise<void> | void;
 
 type OnShippingChangeAddress = {|
     city : string,
@@ -177,18 +184,15 @@ export type Personalization = {|
     |}
 |};
 
-export type ApplePayErrorCode = 'shippingContactInvalid' | 'billingContactInvalid' | 'addressUnserviceable' | 'unknown';
-export type ApplePayContactField = 'phoneNumber' | 'emailAddress' | 'givenName' | 'familyName' | 'phoneticGivenName' | 'phoneticFamilyName' | 'addressLines' | 'subLocality' | 'locality' | 'postalCode' | 'subAdministrativeArea' | 'administrativeArea' | 'country' | 'countryCode';
-
+// https://developer.apple.com/documentation/apple_pay_on_the_web/applepayerror/2970147-applepayerror
 export type ApplePayError = {|
-    code : ApplePayErrorCode,
-    contactField : ApplePayContactField,
-    message : string
+    code : string, // https://developer.apple.com/documentation/apple_pay_on_the_web/applepayerrorcode
+    contactField : string, // https://developer.apple.com/documentation/apple_pay_on_the_web/applepayerrorcontactfield
+    message : string // custom error message
 |};
 
-export type ApplePayLineItemType = 'final' | 'pending';
 export type ApplePayLineItem = {|
-    type? : ApplePayLineItemType,
+    type? : string, // 'final' | 'pending'
     label? : string,
     amount? : string
 |};
@@ -201,7 +205,7 @@ export type ApplePayShippingMethod = {|
 |};
 
 export type ApplePayShippingContactUpdate = {|
-    errors? : $ReadOnlyArray<ApplePayErrorCode>,
+    errors? : $ReadOnlyArray<ApplePayError>,
     newShippingMethods? : $ReadOnlyArray<ApplePayShippingMethod>,
     newTotal : ApplePayLineItem,
     newLineItems? : $ReadOnlyArray<ApplePayLineItem>
@@ -283,6 +287,7 @@ export type ButtonProps = {|
     createSubscription : CreateSubscription,
     oncancel : OnCancel,
     onApprove : OnApprove,
+    onComplete : OnComplete,
     onClick : OnClick,
     getPrerenderDetails : GetPrerenderDetails,
     style : ButtonStyle,

@@ -1,7 +1,7 @@
 /* @flow */
 /* eslint max-lines: 0 */
 
-import { wrapPromise } from 'belter/src';
+import { wrapPromise } from '@krakenjs/belter/src';
 
 import { createTestContainer, destroyTestContainer, WEBVIEW_USER_AGENT } from '../common';
 
@@ -38,7 +38,7 @@ for (const flow of [ 'popup', 'iframe' ]) {
 
                 // $FlowFixMe
                 const win = frame.contentWindow;
-                const button = win.document.querySelector('[role="button"]');
+                const button = win.document.querySelector('[role="link"]');
 
                 frame.click();
                 button.click();
@@ -65,7 +65,7 @@ for (const flow of [ 'popup', 'iframe' ]) {
 
                 // $FlowFixMe
                 const win = frame.contentWindow;
-                const button = win.document.querySelector('[role="button"]');
+                const button = win.document.querySelector('[role="link"]');
 
                 frame.click();
                 button.dispatchEvent(new KeyboardEvent('keypress', { 'keyCode': 32 }));
@@ -92,7 +92,7 @@ for (const flow of [ 'popup', 'iframe' ]) {
 
                 // $FlowFixMe
                 const win = frame.contentWindow;
-                const button = win.document.querySelector('[role="button"]');
+                const button = win.document.querySelector('[role="link"]');
 
                 frame.click();
                 button.dispatchEvent(new KeyboardEvent('keypress', { 'keyCode': 13 }));

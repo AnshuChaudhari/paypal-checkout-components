@@ -3,9 +3,9 @@
 
 import type { FundingEligibilityType } from '@paypal/sdk-client/src';
 import { FUNDING, ENV, type LocaleType } from '@paypal/sdk-constants/src';
-import { node, type ElementNode } from 'jsx-pragmatic/src';
+import { node, type ElementNode } from '@krakenjs/jsx-pragmatic/src';
 import { LOGO_COLOR, LOGO_CLASS } from '@paypal/sdk-logos/src';
-import { noop, preventClickFocus, isBrowser, isElement } from 'belter/src';
+import { noop, preventClickFocus, isBrowser, isElement } from '@krakenjs/belter/src';
 
 import type { ContentType, Wallet, Experiment, WalletInstrument } from '../../types';
 import { ATTRIBUTE, CLASS, BUTTON_COLOR, BUTTON_NUMBER, EXPERIENCE, TEXT_COLOR, BUTTON_FLOW } from '../../constants';
@@ -215,7 +215,7 @@ export function Button({ fundingSource, style, multiple, locale, env, fundingEli
             ].join(' ') }
         >
             <div
-                role='button'
+                role='link'
                 { ...{
                     [ ATTRIBUTE.BUTTON ]:            true,
                     [ ATTRIBUTE.FUNDING_SOURCE ]:    fundingSource,
