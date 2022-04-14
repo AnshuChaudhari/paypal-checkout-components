@@ -13,13 +13,11 @@ import { storageState, sessionState } from '../../lib';
 import { type PaymentFieldsProps } from './props';
 import { PaymentFieldsPrerender } from './prerender';
 import { PaymentFieldsContainer } from './container';
-import {ZalgoPromise} from "zalgo-promise/src";
 
 export type PaymentFieldsComponent = ZoidComponent<PaymentFieldsProps>;
 
 export function getPaymentFieldsComponent() : PaymentFieldsComponent {
     return inlineMemoize(getPaymentFieldsComponent, () => {
-        console.log('in PaymentFieldsComponent ++++++++++++++++++++++++++++ ');
         return create({
             tag: 'paypal-fields',
             url: () => `${ getPayPalDomain() }${ __PAYPAL_CHECKOUT__.__URI__.__PAYMENT_FIELDS__ }`,
@@ -81,13 +79,7 @@ export function getPaymentFieldsComponent() : PaymentFieldsComponent {
                     sendToChild: false,
                     value:       getSDKMeta
                 },
-                createOrder: {
-                    type:       'function',
-                    queryParam: 'token',
-                    alias:      'payment',
-                    // $FlowFixMe
-                    queryValue: ({ value }) => ZalgoPromise.try(value)
-                },
+
                 clientID: {
                     type:       'string',
                     queryParam: true,
