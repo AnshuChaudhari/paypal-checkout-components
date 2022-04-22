@@ -121,6 +121,15 @@ export function getPaymentFieldsComponent() : PaymentFieldsComponent {
                     type:     'function',
                     required: false
                 },
+                onContinue: {
+                    type:     'function',
+                    required: false
+                },
+
+                createOrder: {
+                    type:     'function',
+                    required: false
+                },
 
                 buyerCountry: {
                     type:       'string',
