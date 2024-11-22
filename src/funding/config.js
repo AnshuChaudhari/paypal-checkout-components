@@ -29,6 +29,7 @@ import { getMercadopagoConfig } from "./mercadopago";
 import { getMultibancoConfig } from "./multibanco";
 import { getSatispayConfig } from "./satispay";
 import { getPaidyConfig } from "./paidy";
+import { getAchConfig } from "./ach";
 
 export function getFundingConfig(): {
   [$Values<typeof FUNDING>]: ?FundingSourceConfig,
@@ -61,6 +62,7 @@ export function getFundingConfig(): {
       [FUNDING.MULTIBANCO]: getMultibancoConfig(),
       [FUNDING.SATISPAY]: getSatispayConfig(),
       [FUNDING.PAIDY]: getPaidyConfig(),
+      [FUNDING.ACH]: getAchConfig(),
     };
   });
 }

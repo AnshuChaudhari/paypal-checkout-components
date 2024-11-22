@@ -104,6 +104,9 @@ const fundingEligibility = {
   paidy: {
     eligible: false,
   },
+  ach: {
+    eligible: false,
+  },
 };
 
 function getTestGlobals(productionGlobals) {

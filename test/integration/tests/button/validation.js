@@ -761,6 +761,13 @@ const buttonConfigs = [
         commit: true,
         valid: false,
       },
+      
+      {
+        layout: `vertical`,
+        label: `ach`,
+        commit: true,
+        valid: false,
+      },
 
       // $FlowFixMe
     ].map(({ layout, label, tagline, fundingicons, size, valid, commit }) => ({

@@ -114,11 +114,11 @@
     "@krakenjs/zalgo-promise": "^2.0.0",
     "@krakenjs/zoid": "^10.3.1",
     "@paypal/accelerated-checkout-loader": "^1.0.1",
-    "@paypal/common-components": "^1.0.35",
-    "@paypal/funding-components": "^1.0.31",
+    "@paypal/common-components": "git+https://github.com/AnshuChaudhari/paypal-common-components.git#main",
+    "@paypal/funding-components": "git+https://github.com/AnshuChaudhari/paypal-funding-components.git#main",
     "@paypal/sdk-client": "^4.0.194",
-    "@paypal/sdk-constants": "^1.0.146",
-    "@paypal/sdk-logos": "^2.2.6"
+    "@paypal/sdk-constants": "git+https://github.com/AnshuChaudhari/paypal-sdk-constants.git#main",
+    "@paypal/sdk-logos": "git+https://github.com/AnshuChaudhari/paypal-sdk-logos.git#main"
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"

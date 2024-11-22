@@ -104,6 +104,9 @@ window.__TEST_FUNDING_ELIGIBILITY__ = {
   paidy: {
     eligible: false,
   },
+  ach: {
+    eligible: false,
+  },
 };
 
 window.__TEST_FIRST_RENDER_EXPERIMENTS__ = {
